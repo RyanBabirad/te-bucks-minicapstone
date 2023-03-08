@@ -18,4 +18,10 @@ public class Account {
     public BigDecimal getBalance() {
         return balance;
     }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    // TODO add withdraw and deposit methods
 }
