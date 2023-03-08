@@ -34,19 +34,13 @@ You should attempt to complete all the following required use cases.
    8. A Sending Transfer has an initial status of *Approved*.
 6. As an authenticated user of the system, I need to be able to see transfers I have sent or received.
 7. As an authenticated user of the system, I need to be able to retrieve the details of any transfer based upon the transfer ID.
-8. As a Tech Elevator Banking System, I need to log specific transactions with the Tech Elevator Internal Revenue Service.
-   1. I must log any transfer of at least $1,000 TE Bucks.
+8. As a Tech Elevator Banking System, I need to log specific transactions with the Tech Elevator Aberrant Revenue Service (TEARS).
+   1. I must log any transfer of $1,000 or more TE Bucks.
    2. I must log any transfer attempt that would result in an overdraft.
-      - The Tech Elevator Internal Revenue Service has an API to facilitate logging. The documentation for the API is located at https://te-pgh-api.azurewebsites.net/. Use the appropriate TxLog endpoint(s) to accomplish this. 
+      - The Tech Elevator Aberrant Revenue Service has an API to facilitate logging. The documentation for the API is located at https://te-pgh-api.azurewebsites.net/. Use the appropriate TxLog endpoint(s) to accomplish this. 
       - The login credentials for the API are as follows:
-         - username: `Team<XX>` where <XX> is a two digit number representing your team number
-         - password: `password`
-      - Login using the `/api/Login` endpoint. This endpoint will return a JWT token, which will be used in all subsequent requests to log information.
-
-### Optional use cases
-
-If you complete all the required use cases and are looking for additional challenge, complete as many of the following optional use cases as you can.
-
+         - Create your user account for TEARS using Postman and the registration endpoint `/api/login/Register`
+      - Login to TEARS using the `/api/Login` endpoint. This endpoint will return a JWT token, which will be used in all subsequent requests to log information.
 9. As an authenticated user of the system, I need to be able to *request* a transfer of a specific amount of TE Bucks from another registered user.
    1. I should be able to choose from a list of users to request TE Bucks from.
    2. I must not be allowed to request money from myself.
@@ -144,7 +138,7 @@ For you to complete
 
 | Request Method | Path                       | Request Body            | Returns         |
 |----------------|----------------------------|-------------------------|-----------------|
-| GET            | /api/account/balance       | N/A                     | BigDecimal      |
+| GET            | /api/account/balance       | N/A                     | Account      |
 | GET            | /api/account/transfers     | N/A                     | List\<Transfer> |
 | GET            | /api/transfers/{id}        | N/A                     | Transfer        |
 | POST           | /api/transfers             | NewTransferDto          | Transfer        |
