@@ -23,5 +23,14 @@ public class Account {
         this.balance = balance;
     }
 
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+
     // TODO add withdraw and deposit methods
 }
