@@ -7,7 +7,6 @@ public class NewTransferDto {
     private int userTo;
     private BigDecimal amount;
     private String transferType;
-
     public int getUserFrom() {
         return userFrom;
     }
