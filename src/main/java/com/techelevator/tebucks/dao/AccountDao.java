@@ -14,7 +14,7 @@ public interface AccountDao {
 
     Account getAccountByUserId(int userId);
 
-    BigDecimal getBalance(int accountId);
+    BigDecimal getBalance(int accountId) throws Exception;
 
     Account createAccount(Account account);
 
