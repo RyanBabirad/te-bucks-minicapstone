@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.beans.Expression;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,7 @@ public class JdbcAccountDao implements AccountDao {
     }
 
     @Override
-    public BigDecimal getBalance(int accountId) {
+    public BigDecimal getBalance(int accountId) throws Exception {
         String sql = "SELECT account_id, user_id, balance " +
                 "FROM account " +
                 "WHERE account_id = ?;";
@@ -71,7 +72,7 @@ public class JdbcAccountDao implements AccountDao {
         if (results.next()) {
             return mapRowToAccount(results).getBalance();
         }
-        return BigDecimal.valueOf(0); /////ask if value of 0 is gooooodddddd
+        throw new Exception("Could not find Account");
     }
 
     @Override
@@ -96,7 +97,6 @@ public class JdbcAccountDao implements AccountDao {
         String sql = "UPDATE account " +
                 "SET user_id = ?, balance = ? " +
                 "WHERE account_id = ?;";
-
         jdbcTemplate.update(sql, account.getUserId(), account.getBalance(), account.getAccountId());
     }
 
