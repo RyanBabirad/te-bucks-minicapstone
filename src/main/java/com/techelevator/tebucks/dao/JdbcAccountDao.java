@@ -1,6 +1,4 @@
 package com.techelevator.tebucks.dao;
 
-public interface AccountDao {
-
-
+public class JdbcAccountDao {
 }
