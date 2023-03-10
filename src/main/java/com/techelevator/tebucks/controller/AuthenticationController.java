@@ -3,9 +3,7 @@ package com.techelevator.tebucks.controller;
 import javax.validation.Valid;
 
 import com.techelevator.tebucks.dao.AccountDao;
-import com.techelevator.tebucks.dao.JdbcAccountDao;
 import com.techelevator.tebucks.model.*;
-import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,7 +32,8 @@ public class AuthenticationController {
     private final AccountDao accountDao;
     private final Account newAccount = new Account();
 
-    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao, AccountDao accountDao) {
+    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder,
+                                                                        UserDao userDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDao = userDao;

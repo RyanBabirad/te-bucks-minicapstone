@@ -16,11 +16,6 @@ public interface AccountDao {
 
     BigDecimal getBalance(int accountId) throws Exception;
 
-    Account createAccount(Account account);
-
-    void updateAccount(Account account);
-
-   // void deleteAccount(int accountId);
-
+    Boolean createAccount(int userId);
 
 }

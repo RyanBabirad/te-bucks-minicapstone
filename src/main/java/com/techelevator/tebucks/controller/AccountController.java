@@ -1,4 +1,4 @@
 package com.techelevator.tebucks.controller;
 
-public class AuctionController {
+public class AccountController {
 }

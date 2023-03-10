@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping ("/api/transfers")
 public class TransferController {
+<<<<<<< HEAD
 
     private TransferDao dao;
 
@@ -48,5 +49,11 @@ public class TransferController {
             return result;
         }throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Transfer Not Found");
     }
+=======
+    /* write log file of every transaction that is denied
+     due to lack of funds or that is of value $1000 or
+     greater
+     */
+>>>>>>> 0414158698c6d72408def2f0f6d124cd20f3a509
 }
 //	TransferStatusUpdateDto
