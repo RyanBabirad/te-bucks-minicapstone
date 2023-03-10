@@ -1,14 +1,11 @@
 package com.techelevator.tebucks.dao;
 
 
-import com.techelevator.tebucks.dao.AccountDao;
 import com.techelevator.tebucks.model.Account;
-import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import java.beans.Expression;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,28 +73,14 @@ public class JdbcAccountDao implements AccountDao {
     }
 
     @Override
-    public Account createAccount(Account account) {
-        String sql = "INSERT INTO account " +
-                "VALUES (?, ?) " +
+    public Boolean createAccount(int userId) {
+        String sql = "INSERT INTO account (user_id) " +
+                "VALUES (?) " +
                 "RETURNING account_id;";
 
-        SqlRowSet resultOfInsert = jdbcTemplate.queryForRowSet(sql, account.getUserId(), (account.getBalance()));
+        Integer newId = jdbcTemplate.queryForObject(sql, Integer.class, userId);
 
-        if (resultOfInsert.next()) {
-            int newAccountId = resultOfInsert.getInt("account_id");
-            account.setAccountId(newAccountId);
-            account.setBalance(BigDecimal.valueOf(1000));
-            return account;
-        }
-        return null;
-    }
-
-    @Override
-    public void updateAccount(Account account) {
-        String sql = "UPDATE account " +
-                "SET user_id = ?, balance = ? " +
-                "WHERE account_id = ?;";
-        jdbcTemplate.update(sql, account.getUserId(), account.getBalance(), account.getAccountId());
+        return newId != null;
     }
 
     private Account mapRowToAccount(SqlRowSet rs) {
