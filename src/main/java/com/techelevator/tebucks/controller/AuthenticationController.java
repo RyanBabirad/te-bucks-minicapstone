@@ -2,8 +2,12 @@ package com.techelevator.tebucks.controller;
 
 import javax.validation.Valid;
 
-import com.techelevator.tebucks.model.LoginResponseDto;
+import com.techelevator.tebucks.dao.AccountDao;
+import com.techelevator.tebucks.dao.JdbcAccountDao;
+import com.techelevator.tebucks.model.*;
+import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -15,9 +19,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.tebucks.dao.UserDao;
-import com.techelevator.tebucks.model.LoginDto;
-import com.techelevator.tebucks.model.RegisterUserDto;
-import com.techelevator.tebucks.model.User;
 import com.techelevator.tebucks.security.jwt.TokenProvider;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,11 +31,14 @@ public class AuthenticationController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final UserDao userDao;
+    private final AccountDao accountDao;
+    private final Account newAccount = new Account();
 
-    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao) {
+    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao, AccountDao accountDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDao = userDao;
+        this.accountDao = accountDao;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -58,7 +62,10 @@ public class AuthenticationController {
         if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
         }
+
     }
+
+
 
 
 }
