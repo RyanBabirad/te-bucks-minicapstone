@@ -2,7 +2,8 @@ package com.techelevator.tebucks.controller;
 
 import javax.validation.Valid;
 
-import com.techelevator.tebucks.model.LoginResponseDto;
+import com.techelevator.tebucks.dao.AccountDao;
+import com.techelevator.tebucks.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,9 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.tebucks.dao.UserDao;
-import com.techelevator.tebucks.model.LoginDto;
-import com.techelevator.tebucks.model.RegisterUserDto;
-import com.techelevator.tebucks.model.User;
 import com.techelevator.tebucks.security.jwt.TokenProvider;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -31,7 +29,8 @@ public class AuthenticationController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final UserDao userDao;
 
-    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao) {
+    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder,
+                                                                        UserDao userDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDao = userDao;

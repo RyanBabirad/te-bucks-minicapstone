@@ -32,10 +32,11 @@ CREATE TABLE transfer (
 CREATE TABLE account (
 	account_id serial NOT NULL,
 	user_id int NOT NULL,
-	balance money NOT NULL,
+	balance money DEFAULT(1000),
 	
 	CONSTRAINT pk_account PRIMARY KEY (account_id),
 	CONSTRAINT fk_account_users FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 --rollback
 COMMIT TRANSACTION;
+
