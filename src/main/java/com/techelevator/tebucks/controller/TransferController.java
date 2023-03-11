@@ -3,10 +3,7 @@ package com.techelevator.tebucks.controller;
 import com.techelevator.tebucks.dao.AccountDao;
 import com.techelevator.tebucks.dao.TransferDao;
 import com.techelevator.tebucks.dao.UserDao;
-import com.techelevator.tebucks.model.NewTransferDto;
-import com.techelevator.tebucks.model.Transfer;
-import com.techelevator.tebucks.model.TransferStatusUpdateDto;
-import com.techelevator.tebucks.model.User;
+import com.techelevator.tebucks.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -54,11 +51,17 @@ public class TransferController {
 
 
     @RequestMapping(path = "/api/transfers/{id}/status", method = RequestMethod.PUT)
-        public Transfer transferStatusUpdateDto(@Valid @RequestBody TransferStatusUpdateDto transferStatusUpdateDto, @PathVariable int id){
+        public Transfer transferStatusUpdateDto(@Valid @RequestBody TransferStatusUpdateDto transferStatusUpdateDto, @PathVariable int id) {
         Transfer result = dao.updateTransfer(transferStatusUpdateDto);
-        if(result != null){
+        if (result != null) {
             return result;
-        }throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Transfer Not Found");
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Transfer Not Found");
     }
+//    @RequestMapping(path = "/api/account/balance", method = RequestMethod.GET)
+//    public BigDecimal getAmountByBalance(int balance) throws Exception {
+//
+//        return dao.getAmountByBalance(getAmountByBalance(balance));
+//    }
 }
 //	TransferStatusUpdateDto

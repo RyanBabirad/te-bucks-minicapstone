@@ -1,9 +1,9 @@
 package com.techelevator.tebucks.dao;
 
 import com.techelevator.tebucks.model.Account;
-import com.techelevator.tebucks.model.Transfer;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.List;
 
 public interface AccountDao {
@@ -15,9 +15,11 @@ public interface AccountDao {
 
     Account getAccountByUserId(int userId);
 
-    BigDecimal getBalance(int accountId) throws Exception;
+//    BigDecimal getBalance(int accountId) throws Exception;
 
     Boolean createAccount(int userId);
+
+    Account getBalanceByUserId(int userId);
 
 
 
