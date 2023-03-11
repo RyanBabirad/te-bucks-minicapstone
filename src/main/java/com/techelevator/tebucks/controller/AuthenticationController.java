@@ -20,6 +20,8 @@ import com.techelevator.tebucks.dao.UserDao;
 import com.techelevator.tebucks.security.jwt.TokenProvider;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 /**
  * Controller to authenticate users.
  */
@@ -29,15 +31,12 @@ public class AuthenticationController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final UserDao userDao;
-    private final AccountDao accountDao;
-    private final Account newAccount = new Account();
 
     public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder,
                                                                         UserDao userDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDao = userDao;
-        this.accountDao = accountDao;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -65,7 +64,11 @@ public class AuthenticationController {
     }
 
 
-
-
+    // @RequestMapping(path = "/api/account/transfers" ,method = RequestMethod.GET)
+    //     public List<Transfer> list(int userId){
+    //     if(userId != 0){
+    //    }return dao.getAllTransactionsByUserId(userId);
+    // }
+//GET	/api/users	N/A	List<User>
 }
 
