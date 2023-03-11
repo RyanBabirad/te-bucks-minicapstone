@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import com.techelevator.tebucks.dao.AccountDao;
 import com.techelevator.tebucks.model.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techelevator.tebucks.dao.UserDao;
 import com.techelevator.tebucks.security.jwt.TokenProvider;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 /**
  * Controller to authenticate users.
@@ -57,8 +60,15 @@ public class AuthenticationController {
         if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
         }
+
     }
 
 
+    // @RequestMapping(path = "/api/account/transfers" ,method = RequestMethod.GET)
+    //     public List<Transfer> list(int userId){
+    //     if(userId != 0){
+    //    }return dao.getAllTransactionsByUserId(userId);
+    // }
+//GET	/api/users	N/A	List<User>
 }
 

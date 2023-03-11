@@ -7,6 +7,8 @@ public class NewTransferDto {
     private int userTo;
     private BigDecimal amount;
     private String transferType;
+    private String transferStatus;
+
     public int getUserFrom() {
         return userFrom;
     }
@@ -37,5 +39,9 @@ public class NewTransferDto {
 
     public void setTransferType(String transferType) {
         this.transferType = transferType;
+    }
+
+    public String getTransferStatus() {
+        return transferStatus;
     }
 }

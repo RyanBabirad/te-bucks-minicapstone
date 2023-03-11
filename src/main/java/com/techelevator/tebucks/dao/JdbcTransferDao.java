@@ -1,7 +1,8 @@
 package com.techelevator.tebucks.dao;
 
-import com.techelevator.tebucks.model.Account;
+import com.techelevator.tebucks.model.NewTransferDto;
 import com.techelevator.tebucks.model.Transfer;
+import com.techelevator.tebucks.model.TransferStatusUpdateDto;
 import com.techelevator.tebucks.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -21,53 +22,78 @@ public class JdbcTransferDao implements TransferDao {
 
     @Override
     public List<Transfer> getSentTransactionsByUserId(int userId) {
-        List<Transfer> sentTransfer = new ArrayList<>();
+        List<Transfer> sentTransferList = new ArrayList<>();
         String sql = "SELECT * FROM transfer " +
                 "WHERE user_from = ?;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
             Transfer transfer = mapRowToTransfer(results);
-            sentTransfer.add(transfer);
+            sentTransferList.add(transfer);
         }
 
-        return sentTransfer;
+        return sentTransferList;
     }
 
     @Override
     public List<Transfer> getReceivedTransactionsByUserId(int userId) {
-        List<Transfer> receivedTransfer = new ArrayList<>();
+        List<Transfer> receivedTransferList = new ArrayList<>();
         String sql = "SELECT * FROM transfer " +
                 "WHERE user_to = ?;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
             Transfer transfer = mapRowToTransfer(results);
-            receivedTransfer.add(transfer);
+            receivedTransferList.add(transfer);
         }
-        return receivedTransfer;
+        return receivedTransferList;
     }
 
     @Override
-    public Transfer createTransfer(Transfer transfer) {
+    public List<Transfer> getAllTransactionsByUserId(int userId) {
+        List<Transfer> allTransferList = new ArrayList<>();
+        String sql = "SELECT * FROM transfer " +
+                "WHERE user_to = ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while (results.next()) {
+            Transfer transfer = mapRowToTransfer(results);
+            allTransferList.add(transfer);
+        }
+        return allTransferList;
+    }
+
+    @Override
+    public Transfer createTransfer(NewTransferDto newTransferDto) {
         String sql = "INSERT INTO transfer " +
                 "VALUES (?, ?, ?, ? , ?) " +
                 "RETURNING transfer_id;";
 
-        SqlRowSet resultOfInsert = jdbcTemplate.queryForRowSet(sql, transfer.getTransferType(),
-                    transfer.getTransferStatus(), transfer.getUserFrom(), transfer.getUserTo(), transfer.getAmount());
+        SqlRowSet resultOfInsert = jdbcTemplate.queryForRowSet(sql, newTransferDto.getTransferType(),
+                    newTransferDto.getTransferStatus(), newTransferDto.getUserFrom(), newTransferDto.getUserTo(), newTransferDto.getAmount());
         return null;
     }
 
     @Override
-    public void updateTransfer(Transfer transfer) {
+    public Transfer updateTransfer(TransferStatusUpdateDto transferStatusUpdateDto) {
     String sql = "UPDATE transfer " +
-            "SET transfer_type = ?, transfer_status = ?, user_from = ?, user_to = ?, amount = ? " +
+            "SET transfer_status = ? " +
             "WHERE transfer_id = ?;";
 
-    jdbcTemplate.update(sql, transfer.getTransferType(), transfer.getTransferStatus(), transfer.getUserFrom(),
-                                    transfer.getUserTo(), transfer.getAmount(), transfer.getTransferId());
+    jdbcTemplate.update(sql,transferStatusUpdateDto.getTransferStatus());
+        return null;
     }
+
+//    @Override
+//    public Transfer updateTransfer(Transfer transfer) {
+//        String sql = "UPDATE transfer " +
+//                "SET transfer_type = ?, transfer_status = ?, user_from = ?, user_to = ?, amount = ? " +
+//                "WHERE transfer_id = ?;";
+//
+//        jdbcTemplate.update(sql, transfer.getTransferType(), transfer.getTransferStatus(), transfer.getUserFrom(),
+//                transfer.getUserTo(), transfer.getAmount(), transfer.getTransferId());
+//        return null;
+//    }
 
     @Override
     public Transfer getTransferByTransferId(int transferId) {

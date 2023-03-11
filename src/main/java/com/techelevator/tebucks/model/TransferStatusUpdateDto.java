@@ -1,5 +1,7 @@
 package com.techelevator.tebucks.model;
 
+import java.math.BigDecimal;
+
 public class TransferStatusUpdateDto {
 	private String transferStatus;
 
@@ -10,4 +12,7 @@ public class TransferStatusUpdateDto {
 	public void setTransferStatus(String transferStatus) {
 		this.transferStatus = transferStatus;
 	}
+
+
+
 }
