@@ -16,7 +16,7 @@ public class Transfer {
     public static final String TRANSFER_STATUS_APPROVED = "Approved";
     public static final String TRANSFER_STATUS_REJECTED = "Rejected";
 
-	public int getTransferId() {
+    public int getTransferId() {
         return transferId;
     }
 
@@ -27,38 +27,38 @@ public class Transfer {
     public String getTransferStatus() {
         return transferStatus;
     }
-    
+
     public User getUserFrom() {
-    	return userFrom;
+        return userFrom;
     }
-    
+
     public User getUserTo() {
-    	return userTo;
+        return userTo;
     }
 
     public BigDecimal getAmount() {
         return amount;
     }
 
-	public boolean isApproved() {
-		return false; // TODO
-	}
-	
-	public boolean isRejected() {
-		return false; // TODO
-	}
-	
-	public boolean isPending() {
-		return false; // TODO
-	}
-	
-	public boolean isRequestType() {
-		return false; // TODO
-	}
-	
-	public boolean isSendType() {
-		return false; // TODO
-	}
+    public boolean isApproved() {
+        return transferStatus.equalsIgnoreCase(TRANSFER_STATUS_APPROVED);
+    }
+
+    public boolean isRejected() {
+        return transferStatus.equalsIgnoreCase(TRANSFER_STATUS_REJECTED);
+    }
+
+    public boolean isPending() {
+        return transferStatus.equalsIgnoreCase(TRANSFER_STATUS_PENDING);
+    }
+
+    public boolean isRequestType() {
+        return transferStatus.equalsIgnoreCase(TRANSFER_TYPE_REQUEST);
+    }
+
+    public boolean isSendType() {
+        return transferStatus.equalsIgnoreCase(TRANSFER_TYPE_SEND);
+    }
 
     public void setTransferId(int transferId) {
         this.transferId = transferId;
