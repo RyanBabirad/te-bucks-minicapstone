@@ -17,42 +17,42 @@ import java.util.List;
 
 public class TransferController {
 
-    private TransferDao dao;
+    private TransferDao transferDao;
     @Autowired
     private UserDao userDao;
     @Autowired
     private AccountDao accountDao;
 
-    public TransferController(TransferDao dao){
-        this.dao = dao;
+    public TransferController(TransferDao dao) {
+        this.transferDao = dao;
     }
 
-   @RequestMapping(path = "/api/account/transfers" ,method = RequestMethod.GET)
-      public List<Transfer> list(int userId){
-       if(userId != 0){
-      }return dao.getAllTransactionsByUserId(userId);
+    @RequestMapping(path = "/api/account/transfers", method = RequestMethod.GET)
+    public List<Transfer> list(int userId) {
+        if (userId != 0) {
+        }
+        return transferDao.getAllTransactionsByUserId(userId);
     }
 
-   @RequestMapping(path = "/api/users", method = RequestMethod.GET)
-   public List<User> list(){
-       return userDao.findAll();
-   }
+    @RequestMapping(path = "/api/users", method = RequestMethod.GET)
+    public List<User> list() {
+        return userDao.findAll();
+    }
 
     @RequestMapping(path = "/api/transfers/{id}", method = RequestMethod.GET)
-        public Transfer get(@PathVariable int id){
-        return dao.getTransferByTransferId(id);
+    public Transfer get(@PathVariable int id) {
+        return transferDao.getTransferByTransferId(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/api/transfers", method = RequestMethod.POST)
-        public Transfer createNewTransfer(@RequestBody NewTransferDto newTransferDto){
-        return dao.createTransfer(newTransferDto);
+    public Transfer createNewTransfer(@RequestBody NewTransferDto newTransferDto) {
+        return transferDao.createTransfer(newTransferDto);
     }
 
-
     @RequestMapping(path = "/api/transfers/{id}/status", method = RequestMethod.PUT)
-        public Transfer transferStatusUpdateDto(@Valid @RequestBody TransferStatusUpdateDto transferStatusUpdateDto, @PathVariable int id) {
-        Transfer result = dao.updateTransfer(transferStatusUpdateDto);
+    public Transfer transferStatusUpdateDto(@Valid @RequestBody TransferStatusUpdateDto transferStatusUpdateDto, @PathVariable int id) {
+        Transfer result = transferDao.updateTransfer(transferStatusUpdateDto);
         if (result != null) {
             return result;
         }
